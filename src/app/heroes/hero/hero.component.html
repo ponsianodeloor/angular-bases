@@ -15,7 +15,7 @@
   <dd>{{capitalizedName}}</dd>
 </dl>
 
-<button class="btn btn-primary mx-1" (click)="changeName()">Cambiar Nombre</button>
+<button *ngIf="hero.name === 'Windstorm'" class="btn btn-primary mx-1" (click)="changeName()">Cambiar Nombre</button>
 <button class="btn btn-primary mx-1" (click)="changeAge()">Cambiar Edad</button>
-<button class="btn btn-primary mx-1" (click)="changeHero()">Cambiar Hero</button>
+<button *ngIf="hero.name !== 'Spiderman'" class="btn btn-primary mx-1" (click)="changeHero()">Cambiar Spiderman</button>
 <button class="btn btn-primary mx-1" (click)="changeHeroBatman()">Cambiar Batman</button>
