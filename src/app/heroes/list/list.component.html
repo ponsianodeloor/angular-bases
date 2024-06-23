@@ -1,1 +1,27 @@
-<p>list works!</p>
+<h3>
+  {{ title }}
+</h3>
+
+<form [formGroup]="heroForm" (ngSubmit)="addHero()">
+  <input type="text" formControlName="name" placeholder="Nombre" required>
+  <input type="text" formControlName="power" placeholder="Poder" required>
+  <input type="text" formControlName="alterEgo" placeholder="Alter ego" required>
+  <input type="number" formControlName="age" placeholder="Edad" required>
+  <button type="submit">
+    Agregar
+  </button>
+</form>
+
+<ul>
+  <li *ngFor="let hero of heroes">
+    {{ hero.id }}
+    {{ hero.name }}
+    {{ hero.power }}
+    {{ hero.alterEgo }}
+    {{ hero.age}}
+
+    <button (click)="deleteHero(hero)">
+      Borrar
+    </button>
+  </li>
+</ul>
