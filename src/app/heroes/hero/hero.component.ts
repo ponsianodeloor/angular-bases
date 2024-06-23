@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Hero} from "../../interface/Hero";
 
 @Component({
   selector: 'app-heroes-hero',
@@ -7,32 +8,55 @@ import { Component } from '@angular/core';
 })
 export class HeroComponent {
 
-  hero = {
+  public hero:{id: number, name:string, power:string, alterEgo:string, age:number} = {
     id: 1,
     name: 'Windstorm',
     power: 'Weather control',
     alterEgo: 'Jane Doe',
-    universe: 'DC',
-    description: 'Windstorm is a fictional superhero appearing in American comic books published by DC Comics. The character was created by writer Gardner Fox and artist Dennis Neville, and first appeared in Flash Comics #1 in',
-    image: 'https://www.superherodb.com/pictures2/portraits/10/100/10060.jpg',
-    thumbnail: 'https://www.superherodb.com/pictures2/portraits/10/100/10060.jpg',
-    movies: ['Justice League', 'Wonder'],
-    comics: ['Flash Comics', 'Justice'],
     age: 30
-
   };
+
+  public heroTwo:Hero = {
+    id: 2,
+    name: 'Batman',
+    power: 'Rich',
+    alterEgo: 'Bruce Wayne',
+    age: 40
+  }
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  changeName() {
+  changeHero():void {
+    this.hero = {
+      id: 3,
+      name: 'Spiderman',
+      power: 'Spider',
+      alterEgo: 'Peter Parker',
+      age: 25
+    };
+  }
+
+  changeHeroBatman():void {
+    this.hero = this.heroTwo;
+  }
+
+  changeName():void {
     this.hero.name = 'Superman';
   }
 
-  changeAge() {
+  changeAge():void {
     this.hero.age = 35;
+  }
+
+  get capitalizedName():string {
+    return this.hero.name.toUpperCase();
+  }
+
+  getHeroDescription():string {
+    return `${this.hero.name} is ${this.hero.alterEgo}`;
   }
 
 }
