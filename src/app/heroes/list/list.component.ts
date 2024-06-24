@@ -13,6 +13,8 @@ export class ListComponent {
 
   heroes:Hero[];
   heroForm: FormGroup;
+  editingHeroId: number | null = null;
+  heroEditForm: FormGroup;
   private fb: FormBuilder = new FormBuilder();
 
   constructor() {
@@ -56,10 +58,18 @@ export class ListComponent {
     ];
 
     this.heroForm = this.fb.group({
-      name: ['', Validators.required, Validators.minLength(3)],
+      name: ['', Validators.required],
       power: ['', Validators.required],
       alterEgo: ['', Validators.required],
-      age: ['', Validators.required, Validators.min(1)]
+      age: ['', Validators.required]
+    });
+
+    this.heroEditForm = this.fb.group({
+      id: ['', Validators.required],
+      name: ['', Validators.required],
+      power: ['', Validators.required],
+      alterEgo: ['', Validators.required],
+      age: ['', Validators.required]
     });
   }
 
@@ -84,6 +94,21 @@ export class ListComponent {
 
   deleteHero(hero: Hero): void {
     this.heroes = this.heroes.filter(h => h.id !== hero.id);
+  }
+
+  editHero(hero: Hero): void {
+    this.editingHeroId = hero.id;
+    this.heroEditForm.patchValue(hero);
+  }
+
+  updateHero(hero: Hero): void {
+    const index = this.heroes.findIndex(h => h.id === hero.id);
+    this.heroes[index] = hero;
+    this.editingHeroId = null; // reset editingHeroId after updating
+  }
+
+  deleteLatestHero(): void {
+    this.heroes.pop();
   }
 
 }

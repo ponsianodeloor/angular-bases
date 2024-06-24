@@ -10,7 +10,10 @@
   <button type="submit">
     Agregar
   </button>
+
+  <button *ngIf="heroForm.value.id" (click)="updateHero(heroForm.value)">Save</button>
 </form>
+
 
 <ul>
   <li *ngFor="let hero of heroes">
@@ -23,5 +26,24 @@
     <button (click)="deleteHero(hero)">
       Borrar
     </button>
+
+    <button (click)="editHero(hero)">
+      Editar
+    </button>
+
+    <form *ngIf="editingHeroId === hero.id"  [formGroup]="heroEditForm" (ngSubmit)="updateHero(heroEditForm.value)">
+      <input type="hidden" formControlName="id">
+      <input type="text" formControlName="name" placeholder="Nombre" required>
+      <input type="text" formControlName="power" placeholder="Poder" required>
+      <input type="text" formControlName="alterEgo" placeholder="Alter ego" required>
+      <input type="number" formControlName="age" placeholder="Edad" required>
+
+      <button type="submit">
+        Guardar
+      </button>
+    </form>
   </li>
 </ul>
+
+<button *ngIf="heroes.length > 0" (click)="deleteLatestHero()">Delete Last Hero</button>
+
