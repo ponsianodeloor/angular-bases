@@ -2,6 +2,26 @@
   {{ title }}
 </h3>
 
+<h3 *ngIf="deletedHero; else heroeNotDeleted">
+  Heroe borrado con exito {{ deletedHero?.name }}
+</h3>
+
+<ng-template #heroeNotDeleted>
+  <h3>
+    No se ha borrado ningun heroe
+  </h3>
+</ng-template>
+
+<h3 *ngIf="editingHeroId; else heroeNotEdited">
+  Editando al héroe: {{ getEditingHero()?.name }}
+</h3>
+
+<ng-template #heroeNotEdited>
+  <h3>
+    No se está editando ningún héroe
+  </h3>
+</ng-template>
+
 <form [formGroup]="heroForm" (ngSubmit)="addHero()">
   <input type="text" formControlName="name" placeholder="Nombre" required>
   <input type="text" formControlName="power" placeholder="Poder" required>

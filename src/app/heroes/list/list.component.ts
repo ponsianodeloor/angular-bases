@@ -15,6 +15,7 @@ export class ListComponent {
   heroForm: FormGroup;
   editingHeroId: number | null = null;
   heroEditForm: FormGroup;
+  deletedHero?: Hero = undefined;
   private fb: FormBuilder = new FormBuilder();
 
   constructor() {
@@ -94,11 +95,16 @@ export class ListComponent {
 
   deleteHero(hero: Hero): void {
     this.heroes = this.heroes.filter(h => h.id !== hero.id);
+    this.editingHeroId = null; // reset editingHeroId after deleting
   }
 
   editHero(hero: Hero): void {
     this.editingHeroId = hero.id;
     this.heroEditForm.patchValue(hero);
+  }
+
+  getEditingHero(): Hero | undefined {
+    return this.heroes.find(hero => hero.id === this.editingHeroId);
   }
 
   updateHero(hero: Hero): void {
@@ -108,7 +114,8 @@ export class ListComponent {
   }
 
   deleteLatestHero(): void {
-    this.heroes.pop();
+    this.deletedHero = this.heroes.pop();
+    this.editingHeroId = null; // reset editingHeroId after deleting
   }
 
 }
